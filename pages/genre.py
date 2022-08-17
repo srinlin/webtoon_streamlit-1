@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 import koreanize_matplotlib
 import pandas as pd
 import numpy as np
+import random
 
 from sklearn.metrics.pairwise import cosine_similarity
 
