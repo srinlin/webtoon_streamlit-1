@@ -38,81 +38,85 @@ grid_table = AgGrid(df, height=250, gridOptions=gridoptions,
 
    
 st.write('## Selected')
+
 selected_row = grid_table["selected_rows"]
 
-
+# 선택한 행의 제목들을 리스트 형태로 추출한다.
 st.dataframe(selected_row)
 
 df2 = pd.DataFrame(selected_row)
-st.dataframe(df2['title'])
-# tmp = pd.get_dummies(df.genre)
 
-# def col_change(df):
-#     for col in df.columns:
-#         if ',' in col:
-#             col_sep = col.split(', ')
-#             df[col_sep[0]] = df[col_sep[0]] + df[col]
-#             df[col_sep[1]] = df[col_sep[1]] + df[col]
-#             df.drop(columns=[f'{col}'], inplace=True)
-#     return df
+title_input = df2.title.tolist()
 
-# col_change(tmp)
+# 장르 유사도 계산하는 함수 만들기
+tmp = pd.get_dummies(df.genre)
 
-# genre_df = col_change(pd.get_dummies(df.genre))
-# df = pd.concat([df.title, df.score, genre_df], axis=1)
+def col_change(df):
+    for col in df.columns:
+        if ',' in col:
+            col_sep = col.split(', ')
+            df[col_sep[0]] = df[col_sep[0]] + df[col]
+            df[col_sep[1]] = df[col_sep[1]] + df[col]
+            df.drop(columns=[f'{col}'], inplace=True)
+    return df
 
-# df.columns = df.columns.str.strip('\'')
+col_change(tmp)
 
-# def one_genre(title):
-#     """
-#     장르 하나의 
-#     """
-#     g_row = df[df.title == title]
-#     genres = g_row[df.columns[2:]]
-#     return genres.values
+genre_df = col_change(pd.get_dummies(df.genre))
+df = pd.concat([df.title, df.score, genre_df], axis=1)
 
-# def genres(title_list):
-#     genre_list = [0]*9
-#     for title in title_list:
-#         genre_list = genre_list + one_genre(title)
-#     return genre_list
+df.columns = df.columns.str.strip('\'')
 
-# # 시청 목록과 장르 유사도 높은 웹툰 중 평점 높은 10개
-# score = genre_df.to_numpy()
+def one_genre(title):
+    """
+    장르 하나의 
+    """
+    g_row = df[df.title == title]
+    genres = g_row[df.columns[2:]]
+    return genres.values
 
-# def genre_model(title_list):
-#     local_score = np.append(score, genres(title_list), axis=0)
-#     cosine_similar = cosine_similarity(local_score, local_score)
-#     cosine_similar_data = pd.DataFrame(cosine_similar)
+def genres(title_list):
+    genre_list = [0]*9
+    for title in title_list:
+        genre_list = genre_list + one_genre(title)
+    return genre_list
 
-#     genre_user = cosine_similar_data.tail(1).T.sort_values(by=cosine_similar_data.columns[-1], ascending=False)
-#     max_score = genre_user.values[1][0]
+# 시청 목록과 장르 유사도 높은 웹툰 중 평점 높은 10개
+score = genre_df.to_numpy()
+
+def genre_model(title_list):
+    local_score = np.append(score, genres(title_list), axis=0)
+    cosine_similar = cosine_similarity(local_score, local_score)
+    cosine_similar_data = pd.DataFrame(cosine_similar)
+
+    genre_user = cosine_similar_data.tail(1).T.sort_values(by=cosine_similar_data.columns[-1], ascending=False)
+    max_score = genre_user.values[1][0]
     
-#     max_index = list(genre_user[(genre_user.values) == max_score].index)
+    max_index = list(genre_user[(genre_user.values) == max_score].index)
 
-#     if df.shape[0] in max_index:
-#         max_index.remove(df.shape[0])
+    if df.shape[0] in max_index:
+        max_index.remove(df.shape[0])
 
-#     sorted_df = df.loc[max_index].sort_values(by='score', ascending=False)
+    sorted_df = df.loc[max_index].sort_values(by='score', ascending=False)
 
-#     if len(max_index) < 10:
-#         return sorted_df
+    if len(max_index) < 10:
+        return sorted_df
     
-#     else:
-#         min_score = sorted_df.iloc[9].score
-#         ind = 0
-#         for i in range(10):
-#             if sorted_df.iloc[i].score == min_score:
-#                 ind = i
-#                 break
-#         randnum = sorted_df[sorted_df.score == min_score].shape[0]
-#         randlist = random.sample(range(ind, ind + randnum), 10 - ind)
-#         tdf1, tdf2 = sorted_df[:ind], sorted_df.iloc[randlist]
-#         sorted_df = pd.concat([tdf1, tdf2])
+    else:
+        min_score = sorted_df.iloc[9].score
+        ind = 0
+        for i in range(10):
+            if sorted_df.iloc[i].score == min_score:
+                ind = i
+                break
+        randnum = sorted_df[sorted_df.score == min_score].shape[0]
+        randlist = random.sample(range(ind, ind + randnum), 10 - ind)
+        tdf1, tdf2 = sorted_df[:ind], sorted_df.iloc[randlist]
+        sorted_df = pd.concat([tdf1, tdf2])
 
-#         return sorted_df
+        return sorted_df
    
-# g = genre_model( list_input )
+g = genre_model(title_input)
 
-# st.dataframe(g)
+st.dataframe(g)
 
