@@ -47,7 +47,7 @@ st.write('## Selected')
 selected_row = grid_table["selected_rows"]
 
 ##############################################################
-del selected_row['rowIndex']
+del selected_row[0]['rowIndex']
 
 
 
