@@ -87,7 +87,7 @@ def genres(title_list):
 # 시청 목록과 장르 유사도 높은 웹툰 중 평점 높은 10개
 score = genre_df.to_numpy()
 
-def genre_model(title_list):
+def genre_model(title_list=[]):
     if not title_list:
         return st.write("아직 선택한 웹툰이 없습니다")
     
