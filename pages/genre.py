@@ -88,6 +88,9 @@ def genres(title_list):
 score = genre_df.to_numpy()
 
 def genre_model(title_list):
+    if not title_list:
+        return st.write("아직 선택한 웹툰이 없습니다")
+    
     local_score = np.append(score, genres(title_list), axis=0)
     cosine_similar = cosine_similarity(local_score, local_score)
     cosine_similar_data = pd.DataFrame(cosine_similar)
@@ -121,8 +124,7 @@ def genre_model(title_list):
 
         return df_origin.loc[indlist]
    
-new_df = genre_model(title_input)
-new_df.index
+g = genre_model(title_input)
 
 st.dataframe(g)
 
