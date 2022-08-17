@@ -17,6 +17,8 @@ df = df[['title','score', 'genre']]
 df.genre = df.genre.str.strip('['']')
 
 #데이터 프레임 체크 박스 만들기
+st.markdown("추천받고자 하는 웹툰과 유사한 장르를 가진 웹툰들을 ")
+
 gd = GridOptionsBuilder.from_dataframe(df)
 gd.configure_selection(selection_mode='multiple', use_checkbox=True)
 gridoptions = gd.build()
@@ -25,7 +27,7 @@ grid_table = AgGrid(df, height=250, gridOptions=gridoptions,
 st.write('## Selected')
 selected_row = grid_table["selected_rows"]
 
-st.markdown("추천받고자 하는 웹툰과 유사한 장르를 가진 웹툰들을 ")
+
 st.dataframe(selected_row)
 
 # tmp = pd.get_dummies(df.genre)
