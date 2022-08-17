@@ -25,6 +25,7 @@ grid_table = AgGrid(df, height=250, gridOptions=gridoptions,
 st.write('## Selected')
 selected_row = grid_table["selected_rows"]
 
+st.markdown("추천받고자 하는 웹툰과 유사한 장르를 가진 웹툰들을 ")
 st.dataframe(selected_row)
 
 # tmp = pd.get_dummies(df.genre)
