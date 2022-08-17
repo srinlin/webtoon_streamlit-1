@@ -10,4 +10,4 @@ transformers
 torch
 scikit-learn
 tensorflow
-st_aggrid
+streamlit-aggrid
