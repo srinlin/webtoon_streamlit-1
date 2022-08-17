@@ -23,14 +23,14 @@ gd = GridOptionsBuilder.from_dataframe(df)
 gd.configure_selection(selection_mode='multiple', use_checkbox=True)
 gridoptions = gd.build()
 
-st.header('웹툰의 제목을 입력해주세요 :)')
-options = st.multiselect(
-     '웹툰 제목을 입력하고 Enter를 눌러주세요.',
-     title_list)
-select_area = st.empty()
+# st.header('웹툰의 제목을 입력해주세요 :)')
+# options = st.multiselect(
+#      '웹툰 제목을 입력하고 Enter를 눌러주세요.',
+#      title_list)
+# select_area = st.empty()
 
-if not options:
-    print(st.empty().info("입력을 기다리는 중~~"))
+# if not options:
+#     print(st.empty().info("입력을 기다리는 중~~"))
     
 grid_table = AgGrid(df, height=250, gridOptions=gridoptions,
                     update_mode=GridUpdateMode.SELECTION_CHANGED)
@@ -41,7 +41,7 @@ st.write('## Selected')
 selected_row = grid_table["selected_rows"]
 
 
-st.dataframe(selected_row)
+st.dataframe(selected_row['title'])
 
 # tmp = pd.get_dummies(df.genre)
 
