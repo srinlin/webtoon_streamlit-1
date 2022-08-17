@@ -132,9 +132,9 @@ def genre_model(title_list=[]):
    
 g = genre_model(title_input)
 
-if g==0:
+if g == 0:
     st.write('웹툰 항목에서 최소 하나의 웹툰을 선택해주세요!')
-elif g != 0:
+elif g =! 0:
     df_result = g[['title', 'artist', 'genre','story','score','image']]
     def to_img_tag(path):
         return '<img src="'+ path + '" width="100" >'
