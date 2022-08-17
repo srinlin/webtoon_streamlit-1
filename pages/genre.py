@@ -46,11 +46,6 @@ st.write('## Selected')
 
 selected_row = grid_table["selected_rows"]
 
-##############################################################
-del selected_row[0]['rowIndex']
-
-
-
 # 선택한 행의 제목들을 리스트 형태로 추출한다.
 st.dataframe(selected_row)
 
