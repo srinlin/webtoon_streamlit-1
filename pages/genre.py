@@ -41,8 +41,10 @@ st.write('## Selected')
 selected_row = grid_table["selected_rows"]
 
 
-st.dataframe(selected_row[0])
+st.dataframe(selected_row)
 
+df2 = pd.DataFrame(selected_row)
+st.dataframe(df2)
 # tmp = pd.get_dummies(df.genre)
 
 # def col_change(df):
