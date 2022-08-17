@@ -41,7 +41,7 @@ st.write('## Selected')
 selected_row = grid_table["selected_rows"]
 
 
-st.dataframe(selected_row)
+st.dataframe(selected_row[0])
 
 # tmp = pd.get_dummies(df.genre)
 
