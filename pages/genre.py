@@ -13,7 +13,7 @@ st.markdown("# 장르 추천 🌈")
 # 데이터 프레임 불러오고 전처리 하기
 df = pd.read_csv("webtoon_total_final.csv")
 
-title_list = df["title"].tolist()
+raw_title_list = df["title"].tolist()
 
 df = df[['title','score', 'genre']]
 df.genre = df.genre.str.strip('['']')
@@ -26,7 +26,7 @@ gridoptions = gd.build()
 # st.header('웹툰의 제목을 입력해주세요 :)')
 # options = st.multiselect(
 #      '웹툰 제목을 입력하고 Enter를 눌러주세요.',
-#      title_list)
+#      raw_title_list)
 # select_area = st.empty()
 
 # if not options:
@@ -40,8 +40,8 @@ grid_table = AgGrid(df, height=250, gridOptions=gridoptions,
 st.write('## Selected')
 selected_row = grid_table["selected_rows"]
 
-
-st.dataframe(selected_row['title'])
+title_list = selected_row['title']
+st.dataframe(title_list)
 
 # tmp = pd.get_dummies(df.genre)
 
