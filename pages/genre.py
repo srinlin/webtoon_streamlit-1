@@ -13,12 +13,21 @@ st.markdown("# 장르 추천 🌈")
 # 데이터 프레임 불러오고 전처리 하기
 df = pd.read_csv("webtoon_total_final.csv")
 
+title_list = df["title"].tolist()
+
 df = df[['title','score', 'genre']]
 df.genre = df.genre.str.strip('['']')
 
 #데이터 프레임 체크 박스 만들기
-st.markdown("추천받고자 하는 웹툰과 유사한 장르를 가진 웹툰들을 ")
+st.header('웹툰의 제목을 입력해주세요 :)')
+options = st.multiselect(
+     '웹툰 제목을 입력하고 Enter를 눌러주세요.',
+     title_list)
+select_area = st.empty()
 
+if not options:
+    print(st.empty().info("입력을 기다리는 중~~"))
+    
 gd = GridOptionsBuilder.from_dataframe(df)
 gd.configure_selection(selection_mode='multiple', use_checkbox=True)
 gridoptions = gd.build()
