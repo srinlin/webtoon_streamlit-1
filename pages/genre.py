@@ -40,8 +40,8 @@ grid_table = AgGrid(df, height=250, gridOptions=gridoptions,
 st.write('## Selected')
 selected_row = grid_table["selected_rows"]
 
-title_list = selected_row[['title']]
-st.dataframe(title_list)
+
+st.dataframe(selected_row)
 
 # tmp = pd.get_dummies(df.genre)
 
