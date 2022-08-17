@@ -44,7 +44,7 @@ selected_row = grid_table["selected_rows"]
 st.dataframe(selected_row)
 
 df2 = pd.DataFrame(selected_row)
-st.dataframe(df2)
+st.dataframe(df2['title'])
 # tmp = pd.get_dummies(df.genre)
 
 # def col_change(df):
