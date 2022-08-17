@@ -49,8 +49,10 @@ st.dataframe(selected_row)
 
 df2 = pd.DataFrame(selected_row)
 
-title_input=[]
-title_input = df2.title.tolist()
+if len(df2) == 0:
+    title_input=[]
+else:
+    title_input = df2.title.tolist()
 
 # 장르 유사도 계산하는 함수 만들기
 tmp = pd.get_dummies(df.genre)
