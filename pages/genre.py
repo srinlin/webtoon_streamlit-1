@@ -94,7 +94,8 @@ score = genre_df.to_numpy()
 
 def genre_model(title_list=[]):
     if not title_list:
-        return st.write("아직 선택한 웹툰이 없습니다")
+        st.write("아직 선택한 웹툰이 없습니다")
+        return 0
     
     local_score = np.append(score, genres(title_list), axis=0)
     cosine_similar = cosine_similarity(local_score, local_score)
@@ -131,7 +132,10 @@ def genre_model(title_list=[]):
    
 g = genre_model(title_input)
 
-df_result = g[['title', 'artist', 'genre','story','score','image']]
+if g ==0:
+    st.write('웹툰 항목에서 최소 하나의 웹툰을 선택해주세요!')
+else:
+    df_result = g[['title', 'artist', 'genre','story','score','image']]
 
 def to_img_tag(path):
     return '<img src="'+ path + '" width="100" >'
