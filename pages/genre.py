@@ -6,6 +6,8 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import koreanize_matplotlib
 import pandas as pd
+import numpy as np
+
 from sklearn.metrics.pairwise import cosine_similarity
 
 st.markdown("# 장르 추천 🌈")
