@@ -136,7 +136,7 @@ df_result = g[['title', 'artist', 'genre','story','score','image']]
 def to_img_tag(path):
     return '<img src="'+ path + '" width="50" >'
 
-HTML(df_result.to_html(escape=False,formatters=dict(image=to_img_tag)))
+a= HTML(df_result.to_html(escape=False,formatters=dict(image=to_img_tag)))
 
-# st.dataframe(g)
+st.write(a)
 
