@@ -11,6 +11,8 @@ import random
 
 from sklearn.metrics.pairwise import cosine_similarity
 
+from IPython.core.display import HTML
+
 st.markdown("# 장르 추천 🌈")
 
 # 데이터 프레임 불러오고 전처리 하기
@@ -128,6 +130,10 @@ def genre_model(title_list=[]):
         return df_origin.loc[indlist]
    
 g = genre_model(title_input)
+
+def to_img_tag(path):
+    return '<img src="'+ path + '" width="50" >'
+a = HTML(df.to_html(escape=False,formatters=dict(image=to_img_tag)))
 
 st.dataframe(g)
 
