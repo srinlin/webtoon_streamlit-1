@@ -134,7 +134,7 @@ g = genre_model(title_input)
 df_result = g[['title', 'artist', 'genre','story','score','image']]
 
 def to_img_tag(path):
-    return '<img src="'+ path + '" width="50" >'
+    return '<img src="'+ path + '" width="100" >'
 
 a= HTML(df_result.to_html(escape=False,formatters=dict(image=to_img_tag)))
 
