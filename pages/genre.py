@@ -136,11 +136,10 @@ if g ==0:
     st.write('웹툰 항목에서 최소 하나의 웹툰을 선택해주세요!')
 else:
     df_result = g[['title', 'artist', 'genre','story','score','image']]
+    def to_img_tag(path):
+        return '<img src="'+ path + '" width="100" >'
+    a= HTML(df_result.to_html(escape=False,formatters=dict(image=to_img_tag)))
+    st.write(a)
 
-def to_img_tag(path):
-    return '<img src="'+ path + '" width="100" >'
 
-a= HTML(df_result.to_html(escape=False,formatters=dict(image=to_img_tag)))
-
-st.write(a)
 
